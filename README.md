@@ -1,9 +1,50 @@
-
 # Linux Backup Manager
 
-A Bash-based backup automation tool that creates timestamped compressed archives, verifies archive integrity, logs operations, and automatically retains the seven newest backups.
+A Bash backup utility that creates timestamped archives, verifies them, logs results, and applies retention.
 
-## Features
+## Problem & Solution
+
+- **Problem:** Manual backups can be inconsistent, unverified, and left to accumulate until storage runs out.
+- **Approach:** The script validates paths, creates and checks a compressed archive, and keeps the seven newest matching backups.
+- **Outcome:** Each run leaves a timestamped, verified backup and an activity log for review.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/successful-backup.png" alt="Successful Backup" width="420">
+      <br><sub>Successful Backup</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/retention-policy.png" alt="Backup Retention" width="420">
+      <br><sub>Backup Retention</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/automated-tests.png" alt="Automated Tests" width="420">
+      <br><sub>Automated Tests</sub>
+    </td>
+    <td></td>
+  </tr>
+</table>
+
+## Architecture Diagram
+
+![Linux Backup Manager Architecture](docs/diagrams/architecture.png)
+
+### Architecture Notes
+
+The diagram below illustrates the Linux Backup Manager workflow, including source validation, archive creation, integrity verification, logging, and backup retention.
+
+
+The editable diagram source is available here: [linux-backup-manager.drawio](docs/diagrams/linux-backup-manager.drawio).
+
+## Project Details
+
+### Features
+
 
 - Timestamped `.tar.gz` backups
 - Source directory validation
@@ -13,41 +54,17 @@ A Bash-based backup automation tool that creates timestamped compressed archives
 - Automated tests
 - Compatible with macOS Bash 3.2 and common Linux Bash environments
 
-## Requirements
+
+### Requirements
+
 
 - Bash
 - `tar`
 - Standard Unix utilities
 
-## Architecture
 
-The diagram below illustrates the Linux Backup Manager workflow, including source validation, archive creation, integrity verification, logging, and backup retention.
+### Usage
 
-![Linux Backup Manager Architecture](docs/diagrams/architecture.png)
-
-The editable diagram source is available here: [linux-backup-manager.drawio](docs/diagrams/linux-backup-manager.drawio).
-
-## Screenshots
-
-### 1. Successful Backup
-
-Demonstrates the creation and verification of a timestamped compressed backup archive.
-
-![Successful Backup](docs/screenshots/successful-backup.png)
-
-### 2. Backup Retention
-
-Shows the retention policy that keeps the seven newest matching backup archives.
-
-![Backup Retention](docs/screenshots/retention-policy.png)
-
-### 3. Automated Tests
-
-Displays the automated test results for backup creation, archive contents, invalid source handling, and backup retention.
-
-![Automated Tests](docs/screenshots/automated-tests.png)
-
-## Usage
 
 Make the script executable:
 
@@ -70,11 +87,15 @@ echo "Hello backup" > ~/backup-demo/source/example.txt
 ./backup.sh ~/backup-demo/source ~/backup-demo/backups
 ```
 
-## Logs
+
+### Logs
+
 
 The script creates `backup.log` in the backup destination. It records timestamps, backup results, and retention cleanup activity.
 
-## Retention Policy
+
+### Retention Policy
+
 
 The script keeps the seven newest matching backup archives in the selected destination and removes older matching archives after a successful archive verification.
 
@@ -82,7 +103,9 @@ The script keeps the seven newest matching backup archives in the selected desti
 
 Retention runs only after a new archive has been created and verified. It removes older matching `backup_*_<source>.tar.gz` files from the destination, so use a dedicated backup directory and confirm its contents before the first run.
 
-## Automated Tests
+
+### Automated Tests
+
 
 Run the test suite:
 
@@ -93,7 +116,9 @@ chmod +x tests/test-backup.sh
 
 The tests check backup creation, archive contents, missing-source handling, and seven-backup retention.
 
-## Project Structure
+
+### Project Structure
+
 
 ```text
 linux-backup-manager/
@@ -107,7 +132,9 @@ linux-backup-manager/
 └── README.md
 ```
 
-## Skills Demonstrated
+
+### Skills Demonstrated
+
 
 - Bash scripting
 - Linux and macOS command-line tools
@@ -117,14 +144,18 @@ linux-backup-manager/
 - Automated testing
 - Git and GitHub
 
-## Future Improvements
+
+### Future Improvements
+
 
 - Dry-run mode
 - Configurable retention count
 - Exclusion patterns
 - Restore command
 
-## Continuous Integration
+
+### Continuous Integration
+
 
 This project uses GitHub Actions to automatically validate and test the Bash backup utility on an Ubuntu Linux runner.
 
@@ -136,4 +167,6 @@ The CI workflow runs on pushes and pull requests and performs the following chec
 
 Workflow configuration: `.github/workflows/ci.yml`
 
+## Author
 
+**Umar Arshad** · [GitHub](https://github.com/umararshad0)
