@@ -80,6 +80,8 @@ The script keeps the seven newest matching backup archives in the selected desti
 
 **Important:** Test the script with disposable files before using it for important data. This project is a learning tool, not a replacement for a tested disaster-recovery system or off-site backup strategy.
 
+Retention runs only after a new archive has been created and verified. It removes older matching `backup_*_<source>.tar.gz` files from the destination, so use a dedicated backup directory and confirm its contents before the first run.
+
 ## Automated Tests
 
 Run the test suite:
@@ -98,6 +100,10 @@ linux-backup-manager/
 ├── backup.sh
 ├── tests/
 │   └── test-backup.sh
+├── docs/
+│   ├── diagrams/
+│   └── screenshots/
+├── .github/workflows/ci.yml
 └── README.md
 ```
 
